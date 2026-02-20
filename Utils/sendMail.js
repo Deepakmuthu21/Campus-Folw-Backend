@@ -10,6 +10,9 @@ export const sendMailer = async (name, email, phone, message) => {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASSWORD,
     },
+     tls: {
+      rejectUnauthorized: false
+    }
   });
   const mailOptions = {
     from: email,
@@ -79,6 +82,9 @@ export const registerCourse = async (name, email) => {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASSWORD,
     },
+    tls: {
+      rejectUnauthorized: false
+    }
   });
 
   const mailOptions = {
@@ -135,6 +141,9 @@ export const approvedUser = async (name, email,registerNo) => {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASSWORD,
     },
+    tls: {
+      rejectUnauthorized: false
+    }
   });
 
   const mailOptions = {
