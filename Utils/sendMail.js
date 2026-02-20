@@ -6,13 +6,13 @@ dotenv.config();
 export const sendMailer = async (name, email, phone, message) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
+    host:"smpt.gmail.com",
+    secure:false,
     auth: {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASSWORD,
     },
-     tls: {
-      rejectUnauthorized: false
-    }
+     
   });
   const mailOptions = {
     from: email,
@@ -78,13 +78,14 @@ export const sendMailer = async (name, email, phone, message) => {
 export const registerCourse = async (name, email) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
+   
+    host:"smpt.gmail.com",
+    secure:false,
     auth: {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASSWORD,
     },
-     tls: {
-      rejectUnauthorized: false
-    }
+     
   });
 
   const mailOptions = {
@@ -137,13 +138,13 @@ export const registerCourse = async (name, email) => {
 export const approvedUser = async (name, email,registerNo) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
+    host:"smpt.gmail.com",
+    secure:false,
     auth: {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASSWORD,
     },
-     tls: {
-      rejectUnauthorized: false
-    }
+   
   });
 
   const mailOptions = {
