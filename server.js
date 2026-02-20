@@ -14,7 +14,14 @@ const PORT = process.env.PORT || 4000;
 // middleware for parse json and cors
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    //"http://localhost:3000", // for local testing
+    "https://react-campusflow.netlify.app/" // deployed frontend
+  ],
+  credentials: true
+}
+));
 
 connectDB();
 
