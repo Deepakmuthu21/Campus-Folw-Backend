@@ -82,7 +82,7 @@ export const registerCourse = async (name, email) => {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASSWORD,
     },
-    tls: {
+     tls: {
       rejectUnauthorized: false
     }
   });
@@ -141,7 +141,7 @@ export const approvedUser = async (name, email,registerNo) => {
       user: process.env.EMAIL,
       pass: process.env.EMAIL_PASSWORD,
     },
-    tls: {
+     tls: {
       rejectUnauthorized: false
     }
   });
