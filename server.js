@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(cors({
   origin: [
-    //"http://localhost:3000", // for local testing
+    "http://localhost:5000", // for local testing
     "https://react-campusflow.netlify.app" // deployed frontend
   ],
   credentials: true
