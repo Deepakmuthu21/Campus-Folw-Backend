@@ -142,8 +142,13 @@ export const adminLogin = async (req, res) => {
 
     let user = await User.findOne({ email });
 
+
     if (!user) {
-      return res.status(400).json({ message: "user not found" });
+      return res.status(400).json({ message: "admin not found" });
+    }
+
+    if(user.role !== "admin"){
+      return res.status(400).json({ message: "admin not found" });
     }
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
@@ -557,7 +562,7 @@ export const deleteUser = async (req, res) => {
       await User.findByIdAndDelete(id);
 
       return res.status(200).json({
-        message: "user deleted Successfully",
+        message: "mentor deleted Successfully",
       });
     }
   } catch (error) {
