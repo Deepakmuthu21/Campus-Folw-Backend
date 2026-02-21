@@ -1,24 +1,20 @@
-import nodemailer from "nodemailer";
+import sgMail from "@sendgrid/mail";
 import dotenv from "dotenv";
 
 dotenv.config();
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-export const sendMailer = async (name, email, phone, message) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    host:"smpt.gmail.com",
-    secure:false,
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-     
-  });
-  const mailOptions = {
-    from: email,
-    to: process.env.EMAIL,
-    subject: "Contact Form Submission",
-    html: `
+export const sendMailer = async (name, email, phone, query) => {
+  try {
+    const message = {
+      from: {
+        name: "CampusFlow",
+        email: process.env.EMAIL,
+      },
+      to: process.env.EMAIL,
+      replyTo: email,
+      subject: "Contact Form Submission",
+      html: `
 <div style="font-family: Arial, sans-serif; background-color:#f3f4f6; padding:40px 20px;">
   
   <div style="max-width:600px; margin:auto; background:white; padding:30px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.08);">
@@ -57,7 +53,7 @@ export const sendMailer = async (name, email, phone, message) => {
     <div style="margin-bottom:20px;">
       <p style="margin:0; font-size:14px; color:#888;">Message</p>
       <div style="margin-top:6px; padding:15px; background:#f9fafb; border-radius:8px; font-size:15px; color:#333;">
-        ${message}
+        ${query}
       </div>
     </div>
 
@@ -71,28 +67,28 @@ export const sendMailer = async (name, email, phone, message) => {
 
 </div>
 `,
-  };
-  await transporter.sendMail(mailOptions);
+    };
+
+    await sgMail.send(message);
+    console.log("Email sent successfully ✅");
+  } catch (error) {
+    console.error("SendGrid Error:", error.response?.body || error.message);
+    throw error;
+  }
+
+  
 };
 
 export const registerCourse = async (name, email) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-   
-    host:"smpt.gmail.com",
-    secure:false,
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-     
-  });
-
-  const mailOptions = {
-    from: process.env.EMAIL,
-    to:email ,
-    subject: "Contact Form Submission",
-    html: `
+  try {
+    const message = {
+      from: {
+        name: "CampusFlow",
+        email: process.env.EMAIL,
+      },
+      to: email,
+      subject: "Register Form Submission",
+      html: `
 <div style="font-family: Arial, sans-serif; background-color:#f4f6f9; padding:30px;">
   
   <div style="max-width:600px; margin:auto; background:white; padding:30px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">
@@ -130,28 +126,28 @@ export const registerCourse = async (name, email) => {
 
 </div>
 `,
-  };
-   await transporter.sendMail(mailOptions)
+    };
+
+    await sgMail.send(message);
+    console.log("Email sent successfully ✅");
+  } catch (error) {
+    console.error("SendGrid Error:", error.response?.body || error.message);
+    throw error;
+  }
+
+  
 };
 
-
-export const approvedUser = async (name, email,registerNo) => {
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    host:"smpt.gmail.com",
-    secure:false,
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-   
-  });
-
-  const mailOptions = {
-    from: process.env.EMAIL,
-    to:email ,
-    subject: "Contact Form Submission",
-    html: `
+export const approvedUser = async (name, email, registerNo) => {
+   try {
+    const message = {
+      from: {
+        name: "CampusFlow",
+        email: process.env.EMAIL,
+      },
+      to: email,
+      subject: "Your Application Status Was Approved",
+      html: `
 <div style="font-family: Arial, sans-serif; background-color:#f4f6f9; padding:30px;">
   
   <div style="max-width:600px; margin:auto; background:white; padding:30px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
@@ -183,7 +179,7 @@ export const approvedUser = async (name, email,registerNo) => {
     </p>
 
     <div style="text-align:center; margin:25px 0;">
-      <a href="http://localhost:3000/login" 
+      <a href="http://localhost:5000/api/user/login" 
          style="background:#4f46e5; color:white; padding:12px 25px; text-decoration:none; border-radius:6px; font-weight:bold;">
         Login to Campu Flow
       </a>
@@ -199,7 +195,15 @@ export const approvedUser = async (name, email,registerNo) => {
 
 </div>
 `,
-  };
-   await transporter.sendMail(mailOptions)
-};
+    };
 
+    await sgMail.send(message);
+    console.log("Email sent successfully ✅");
+  } catch (error) {
+    console.error("SendGrid Error:", error.response?.body || error.message);
+    throw error;
+  }
+
+
+
+};

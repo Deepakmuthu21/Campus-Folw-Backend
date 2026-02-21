@@ -575,10 +575,11 @@ export const sendMail = async (req, res) => {
   const { name, email, phone, message } = req.body;
   try {
     await sendMailer(name, email, phone, message);
-    res.status(200).json({
+     res.status(200).json({
       success: true,
-      message: "Email sent successfully",
+      message: "Email sent successfully ✅"
     });
+    
   } catch (error) {
     res.status(500).json({
       success: false,
