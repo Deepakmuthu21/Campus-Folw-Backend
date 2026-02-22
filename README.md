@@ -1,4 +1,4 @@
-🖥 Campu Flow – Backend
+🖥 Campus Flow – Backend
         Role-Based Academic Workflow Management System (Server Side)
 
         This is the backend service for Campu Flow, a Role-Based Academic Workflow Management System built using Node.js, Express.js, and MongoDB.
