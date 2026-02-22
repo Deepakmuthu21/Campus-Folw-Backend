@@ -342,6 +342,7 @@ export const updateUser = async (req, res) => {
 
     const loggedInUser = req.user.user_id;
     const role = req.user.role;
+    const { name, email, phone } = req.body;
 
     const userToUpdate = await User.findById(id);
 
@@ -361,7 +362,7 @@ export const updateUser = async (req, res) => {
 
       delete req.body.role; // prevent role change
 
-      const updatedStudent = await User.findByIdAndUpdate(id, req.body, {
+      const updatedStudent = await User.findByIdAndUpdate(id,{ name, email, phone },, {
         new: true,
       });
 
@@ -377,7 +378,7 @@ export const updateUser = async (req, res) => {
       if (loggedInUser === id) {
         delete req.body.role;
 
-        const updatedMentor = await User.findByIdAndUpdate(id, req.body, {
+        const updatedMentor = await User.findByIdAndUpdate(id, { name, email, phone }, {
           returnDocument: "after",
         });
 
@@ -476,7 +477,7 @@ export const updateUser = async (req, res) => {
       }
       
 
-      const updatedUser = await User.findByIdAndUpdate(id, req.body, {
+      const updatedUser = await User.findByIdAndUpdate(id, { name, email, phone }, {
         returnDocument: "after",
       });
 
