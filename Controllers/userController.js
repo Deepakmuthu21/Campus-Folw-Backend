@@ -362,7 +362,7 @@ export const updateUser = async (req, res) => {
 
       delete req.body.role; // prevent role change
 
-      const updatedStudent = await User.findByIdAndUpdate(id,{ name, email, phone },, {
+      const updatedStudent = await User.findByIdAndUpdate(id,{ name, email, phone }, {
         new: true,
       });
 
